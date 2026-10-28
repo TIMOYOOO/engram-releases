@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="images/chat-arasaka.png" alt="Engram showing an omp conversation in its Chat view: tool calls on one line each, an edit with its diff, a table and a code block, the context gauge under the conversation and the subscription gauges in the bar">
+  <img src="images/chat-dark.png" alt="Engram showing an omp conversation in its Chat view: tool calls on one line each, an edit with its diff, a table and a code block, the context gauge under the conversation and the subscription gauges in the bar">
 </p>
 
 ## Why Engram
@@ -130,11 +130,13 @@ or French and follows Windows' language by default.
 
 ### Four styles
 
-| Capricorn | Arasaka |
+Dark, shown everywhere above, and Light are the sober ones; Capricorn and Arasaka are the showier ones.
+
+| Dark | Light |
 |---|---|
-| <img src="images/chat-capricorn.png" alt="Capricorn style"> | <img src="images/chat-arasaka.png" alt="Arasaka style"> |
-| **Dark** | **Light** |
 | <img src="images/chat-dark.png" alt="Dark style"> | <img src="images/chat-light.png" alt="Light style"> |
+| **Capricorn** | **Arasaka** |
+| <img src="images/chat-capricorn.png" alt="Capricorn style"> | <img src="images/chat-arasaka.png" alt="Arasaka style"> |
 
 Pick one in the settings or the command palette; it applies at once, terminal colors and notification-area icon
 included.
