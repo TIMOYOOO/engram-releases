@@ -165,6 +165,12 @@ so any running shell is closed. The app asks first if one is open.
 - Every connection must give a token stored in your user folder, or it is shut out.
 - A client never names a program to run: it picks a shell from a fixed list (PowerShell, cmd, Git Bash).
 
+## License
+
+Engram is free to use, at home or at work, but it is not open source: see [LICENSE.md](LICENSE.md). In short, you may
+use it on as many computers as you like; you may not resell or redistribute it, nor take it apart; it comes as is,
+with no warranty.
+
 ## About
 
 This repository only holds the installers and the release notes. The source code is private.
