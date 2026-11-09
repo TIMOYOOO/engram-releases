@@ -7,7 +7,7 @@
 <p align="center">
   <b>A home for your coding agents on Windows.</b><br>
   Run several omp sessions at once, read them as chats, let one of them run the others,<br>
-  and know at a glance which one needs you. Close the window: the work goes on.
+  watch their agents at work and answer them from your phone. Close the window: the work goes on.
 </p>
 
 <p align="center">
@@ -26,12 +26,15 @@ bug while another writes the docs and a third waits for your answer. A terminal 
 Engram is built around it:
 
 - **They keep running.** A small background daemon holds every shell and every agent; the window (the *Deck*) is
-  only a view on them. Close it, come back tomorrow: each tab is where you left it.
+  only a view on them. Close it, come back tomorrow: each tab is where you left it. A conversation nobody looks at
+  sleeps to free its memory, and wakes up when you come back to it.
 - **You read them, not their terminal.** An omp conversation shows as a chat: one line per tool call, edits with
   their diff, questions as cards you answer with a click.
 - **You stay on top of many.** The *Régie* is a conversation that runs the others: ask it who is waiting, what one
   of them found, or to open a new one. *Facette*, a small geode on your desktop, shows every session's state even
-  when the Deck is closed.
+  when the Deck is closed. Away from the PC, your phone shows them too.
+- **You see their agents.** The *Atelier* shows every agent at work on one floor, what it costs, and lets you edit,
+  compare and create agents without touching a config file.
 - **They remember.** A built-in *brain*, a vault of markdown notes compatible with Obsidian, feeds each new
   conversation with what matters and keeps what they learn.
 
@@ -71,6 +74,41 @@ until they are done and sums up what they said. A line on the map ties it to eac
 Whatever it writes into another session from a question asked in Facette waits for your *Send* or *Cancel* first. It
 closes a session only when asked, never one at work, and remembers its own conversation from one opening to the next.
 
+### The Atelier: your agents at work
+
+<img src="images/atelier.png" alt="The Atelier: agents of two projects at work on one floor, each machine in the zone of what it is doing, with the list of what each one does under it">
+
+A full-window view of every agent at work, behind its own button in the bar (`Ctrl+Shift+A`). Each conversation and
+each of its subagents is a small machine on a shared floor; it moves to the zone of what it is doing (reading,
+editing, the shell, the web, delegating) and to the counter when it waits for your answer. The machine tells the
+model, its paint and pennant the project, its light the state. Under the floor, a list says what each one does, for
+how long and at what cost, waiting ones first with *Reply*. It only reads omp's own files: it costs no tokens.
+
+Click an agent and its sheet opens:
+
+- **edit it without YAML**: what it may do, its skills, model, effort and prompt; *New*, *Duplicate*, or *Derive* a
+  copy specialised for one project. The Claude Code copy is written too;
+- **what it really does**: its last 30 days (missions, time, tokens, cost, failures), its last missions, and a
+  comparison with its parent for a derived agent;
+- **recruit from a conversation**: a model reads a conversation and drafts an agent from the rules you kept
+  repeating;
+- **training arena**: two agents do the same brief side by side, each in a throwaway copy of the project, with their
+  diffs, time and cost, and a spending cap.
+
+Once a week, if you accept it, the Atelier reads your recent requests and proposes an agent for a task that keeps
+coming back and that none of yours covers, saying why it would help and why it might not. The *Projects* column shows
+what each project's conversations cost today and over 7 days.
+
+### Engram on your phone
+
+Turn it on in *Settings → Phone*, scan the QR code and type the PIN shown on the PC: your phone's browser becomes a
+chat app, nothing to install. It lists the Régie and each project's conversations, with what works, what waits for
+you and what sleeps, and opens one in big text, with omp's questions as big buttons and pictures from the camera. A
+new conversation asks which project it is for.
+
+Everything goes through a relay that only sees encrypted traffic: no port is opened on the PC. The phone reads and
+answers; configuration, terminals and files stay on the PC, which refuses them whatever the page asks.
+
 ### A Chat view for omp
 
 <img src="images/chat.png" alt="An omp conversation in the Chat view: tool calls on one line each, an edit with its diff, a table and a code block, the context gauge under it. Facette, over the corner, explains that a finished answer stays green until it is read">
@@ -87,7 +125,11 @@ thing:
 - **paths in answers are links**: `src/app.js:12` opens the file in the editor at that line;
 - **quote what you answer**: select a sentence in an answer, or lines in the editor, and *↩ Quote* drops it into your
   message as a chip that brings you back to its source;
-- **pictures in your messages**: paste one (`Ctrl+V`) or drop it on the view;
+- **diagrams and live pages**: a `mermaid` block is drawn as a diagram; an `html` block omp writes is a card that
+  runs, on a click, as a page beside the conversation (a demo, a small tool, a chart), sandboxed with no network;
+- **pictures in your messages**: paste one (`Ctrl+V`) or drop it on the view; a click on any picture shows it big,
+  with zoom. Drop a **video** and the agent watches it; drop a file or folder and its path lands in the message;
+- a message sent while omp works waits above the input box, with **Send now** to cut in;
 - a **context gauge** under the conversation: its size against the model's context window (`186.4k / 1M`), green,
   then amber, then red as it fills.
 
@@ -98,7 +140,8 @@ it is missing.
 
 <img src="images/ask.png" alt="A question from omp shown as a card, with three options, the recommended one marked">
 
-When omp asks you something, the question and its options appear as a card in the conversation. One click answers;
+When omp asks you something, the question and its options appear as a card in the conversation, with a picture
+when an option comes with one (a render, a screenshot). One click answers;
 several questions, multiple choices or a typed answer are gathered, then sent together. The answer goes into omp's own
 dialog, so the terminal stays in sync.
 
@@ -111,6 +154,13 @@ dialog, so the terminal stays in sync.
 - The **subagents** it starts show as a card in the conversation, and in the **Agents panel** under the file tree:
   running ones first, with their kind, model, context, cost, time and what they are doing right now. A click opens an
   agent's log.
+
+### Talk instead of typing
+
+The microphone (`Ctrl+Shift+M`, from any application) types what you say into the message, live. It runs on your PC
+(whisper.cpp, on the graphics card when there is one): nothing is sent anywhere. While you speak, press `F9` and draw
+on your screens to circle what you mean: the picture lands in your sentence, right after the words you had said.
+`Ctrl+Enter` sends. Say "Facette" and the geode wakes up and writes what you say next in its bubble (off by default).
 
 ### A brain for your agents
 
@@ -129,10 +179,12 @@ in a few questions, and lets you choose what it may do, each with its cost:
 - a daily upkeep, given to omp, files the inbox into pages. A strip shows what it changed, and one click puts every
   page back as it was. Each note keeps its earlier texts for 30 days.
 
-### Your Claude subscription at a glance
+### Your Claude subscription and MCP servers at a glance
 
-The bar shows the **5-hour and 7-day windows** of your Claude subscription, as omp last measured them, each with its
-gauge. Hover one to see when it resets.
+The bar shows the **5-hour and 7-day windows** of your Claude subscription, each with its gauge; hover one to see when
+it resets. With several Claude accounts signed in to omp, **⇄** switches every conversation to another one in a
+click. The **MCP** button lists every MCP server omp can use, whether it is connected, its tools and its last error;
+turn one off, reconnect it, or add one.
 
 ### Projects and conversations
 
@@ -144,7 +196,7 @@ resumes a conversation in a new tab, or jumps to the tab that already runs it. R
 <img src="images/split.png" alt="A dev server and a test watcher side by side in one tab">
 
 Tabs, panes side by side or stacked (`Alt+Shift+D`), zoom on one pane, a floating pane that stays in sight from every
-tab, search in the scrollback (`Ctrl+Shift+F`), and a notice when a long job ends in a tab you are not looking at.
+tab (or in a window of its own, on any screen), search in the scrollback (`Ctrl+Shift+F`), and a notice when a long job ends in a tab you are not looking at.
 
 ### Files, Git and a code editor
 
@@ -189,10 +241,9 @@ engram list
 
 <img src="images/settings.png" alt="The settings panel: language, notification area, start with Windows, style, terminal text size, start animation, live preview, shell of new tabs, Chat view, notices, Facette">
 
-Everything in one panel (`Ctrl+,` or ⚙ in the bar): language, staying in the notification area, starting with Windows,
-style, terminal text size, the shell of new tabs, omp in the Chat view at once, notices, Facette (its shortcut, full
-screen, sounds), the brain, and omp's own model and tool approval. The interface speaks English or French and follows
-Windows' language by default.
+Everything in one panel (`Ctrl+,` or ⚙ in the bar), sorted by subject: General, Appearance, Terminals, omp and Chat,
+Voice, Facette, Phone, Shortcuts, Brain. **Every shortcut can be changed**: click it and press the new keys. The
+interface speaks English or French and follows Windows' language by default.
 
 ### Four styles
 
@@ -230,6 +281,9 @@ so any running shell is closed. The app asks first if one is open.
 - The daemon listens on `127.0.0.1` only, and refuses anything sent by a web page.
 - Every connection must give a token stored in your user folder, or it is shut out.
 - A client never names a program to run: it picks a shell from a fixed list (PowerShell, cmd, Git Bash).
+- The phone is off until you pair it, goes through a relay that only sees encrypted traffic, and can only read and
+  answer conversations.
+- Live pages from an answer run sandboxed, with no network and no access to Engram or your files.
 
 ## License
 
